@@ -54,7 +54,7 @@ ip route add 128.0.0.0/1 via 10.0.0.1
 
 To return your default ip you need to delete routes.
 
-8) To check connection try:
+9) To check connection try:
    ping 10.0.0.1
    traceroute -m1 -n 1.1.1.1
    ping 1.1.1.1
