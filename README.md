@@ -8,15 +8,18 @@ SERVER CONFIGURATION
 4) Now, you need to generate private and public key, using command "wg genkey | tee /etc/wireguard/server_private_key | wg pubkey | tee /etc/wireguard/server_public_key" and write "chmod 600 /etc/wireguard/server_private_key"
 5) You need to get network interface on your server, write "ip a | grep "mtu 1500", most probably is "eth0".
 6) Now, you need to make config file of your server "nano /etc/wireguard/wg0.conf" with this text:
+//dont forget to insert your info
+//if you dont have eth0, change this parameter
 
 [Interface]
 Address = 10.0.0.1/24
 ListenPort = 51830
-PrivateKey = server_private_key                                                                       //insert ypur info
+PrivateKey = server_private_key                                                                       
 PostUp = iptables -A FORWARD -i %i -j ACCEPT; iptables -t nat -A POSTROUTING -o
-eth0 -j MASQUERADE                                                                                    //if you dont have eth0, change this parameter
+eth0 -j MASQUERADE                                                                                    
 PostDown = iptables -D FORWARD -i %i -j ACCEPT; iptables -t nat -D POSTROUTING -o
 eth0 -j MASQUERADE
+
 
 7) You need to allow IPv4 forwarding "echo "net.ipv4.ip_forward=1" >> /etc/sysctl.conf && sysctl -p" .
 8) To activate you need to write "wg-quick up wg0" and "wg-quick down wg0" to disactivate.
@@ -24,20 +27,21 @@ eth0 -j MASQUERADE
 CLIENT CONFIGURATION
 1) Now, you need to download wireguard, open new window in terminal and generate clinet keys "wg genkey | sudo tee /etc/wireguard/client_private_key | sudo wg pubkey | sudo tee /etc/wireguard/client_public_key"
 2) Then, you need to add following text to server config file and restart it.
+//dont forget to insert your info 
 
 [Peer]
-PublicKey = client_public_key                                                                          //insert your info
+PublicKey = client_public_key                                                                          
 AllowedIPs = 10.0.0.2/32
 
 3) Then, create wg0-client.conf in /etc/wireguard/ and insert this text:
 
 [Interface]
-PrivateKey = client_private_key                                                                       //insert your info
+PrivateKey = client_private_key                                                                       
 Address = 10.0.0.2/32
 DNS = 8.8.8.8
 [Peer]
-PublicKey = server_public_key                                                                         //insert your info
-Endpoint = IP_SERVER:51830                                                                            //insert your info
+PublicKey = server_public_key                                                                         
+Endpoint = IP_SERVER:51830                                                                            
 AllowedIPs = 0.0.0.0/0
 PersistentKeepalive = 20
 
