@@ -43,9 +43,10 @@ PersistentKeepalive = 20
 
 6) 
 wg-quick up wg0-client   - turn on the vpn
+
 wg-quick down wg0-client - turn off the vpn
 
-7) Furthermore, you need to make routes:
+8) Furthermore, you need to make routes:
 
 ip route add IP_SERVER/32 via YOUR_IP
 ip route add 0.0.0.0/1 via 10.0.0.1
