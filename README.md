@@ -29,7 +29,7 @@ CLIENT CONFIGURATION
 PublicKey = client_public_key                                                                          //insert your info
 AllowedIPs = 10.0.0.2/32
 
-4) Then, create wg0-client.conf in /etc/wireguard/ and insert this text:
+3) Then, create wg0-client.conf in /etc/wireguard/ and insert this text:
 
 [Interface]
 PrivateKey = client_private_key                                                                       //insert your info
@@ -41,12 +41,12 @@ Endpoint = IP_SERVER:51830                                                      
 AllowedIPs = 0.0.0.0/0
 PersistentKeepalive = 20
 
-6) 
+4) 
 wg-quick up wg0-client   - turn on the vpn
 
 wg-quick down wg0-client - turn off the vpn
 
-8) Furthermore, you need to make routes:
+5) Furthermore, you need to make routes:
 
 ip route add IP_SERVER/32 via YOUR_IP
 ip route add 0.0.0.0/1 via 10.0.0.1
@@ -54,7 +54,7 @@ ip route add 128.0.0.0/1 via 10.0.0.1
 
 To return your default ip you need to delete routes.
 
-9) To check connection try:
+6) To check connection try:
    ping 10.0.0.1
    traceroute -m1 -n 1.1.1.1
    ping 1.1.1.1
