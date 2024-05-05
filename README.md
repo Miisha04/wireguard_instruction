@@ -12,6 +12,7 @@ SERVER CONFIGURATION
 //if you dont have eth0, change this parameter
 
 [Interface]
+
 Address = 10.0.0.1/24
 ListenPort = 51830
 PrivateKey = server_private_key                                                                       
@@ -30,16 +31,20 @@ CLIENT CONFIGURATION
 //dont forget to insert your info 
 
 [Peer]
+
 PublicKey = client_public_key                                                                          
 AllowedIPs = 10.0.0.2/32
 
 3) Then, create wg0-client.conf in /etc/wireguard/ and insert this text:
 
 [Interface]
+
 PrivateKey = client_private_key                                                                       
 Address = 10.0.0.2/32
 DNS = 8.8.8.8
+
 [Peer]
+
 PublicKey = server_public_key                                                                         
 Endpoint = IP_SERVER:51830                                                                            
 AllowedIPs = 0.0.0.0/0
