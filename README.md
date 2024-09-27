@@ -10,7 +10,7 @@ SERVER CONFIGURATION
 6) Now, you need to make config file of your server "nano /etc/wireguard/wg0.conf" with this text:
 //dont forget to insert your info
 //if you dont have eth0, change this parameter
-
+```
 [Interface]
 
 Address = 10.0.0.1/24
@@ -21,7 +21,7 @@ eth0 -j MASQUERADE
 PostDown = iptables -D FORWARD -i %i -j ACCEPT; iptables -t nat -D POSTROUTING -o
 eth0 -j MASQUERADE
 
-
+```
 7) You need to allow IPv4 forwarding "echo "net.ipv4.ip_forward=1" >> /etc/sysctl.conf && sysctl -p" .
 8) To activate you need to write "wg-quick up wg0" and "wg-quick down wg0" to disactivate.
 
